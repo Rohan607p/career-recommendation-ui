@@ -123,37 +123,72 @@ flowchart TD
 
 ## 📁 Project Structure
 
+```text
 career-recommendation-ui/
 │
 ├── 📂 app/
-│   ├── layout.tsx                    # Root layout & metadata
-│   ├── page.tsx                      # Landing page (hero + features)
+│   │
+│   ├── 📄 layout.tsx
+│   │   └── Root layout, metadata & global styling
+│   │
+│   ├── 📄 page.tsx
+│   │   └── Landing page with hero section and features
+│   │
 │   ├── 📂 dashboard/
-│   │   └── page.tsx                  # User profile input form
+│   │   └── 📄 page.tsx
+│   │       └── User profile form and preferences
+│   │
 │   └── 📂 results/
-│       └── page.tsx                  # Top 3 job recommendations
+│       └── 📄 page.tsx
+│           └── Displays top job recommendations
 │
 ├── 📂 components/
-│   ├── ProfileForm.tsx               # Skill/interest/education input
-│   ├── JobRecommendationCard.tsx     # Match card with score breakdown
-│   └── 📂 ui/                        # shadcn/ui component library
+│   │
+│   ├── 📄 ProfileForm.tsx
+│   │   └── Collects skills, interests, education, experience
+│   │
+│   ├── 📄 JobRecommendationCard.tsx
+│   │   └── Recommendation card with score breakdown
+│   │
+│   └── 📂 ui/
+│       └── Reusable shadcn/ui components
 │
 ├── 📂 lib/
+│   │
 │   ├── 📂 algorithms/
-│   │   ├── skillMatching.ts          # Algorithm 1 — Cosine similarity
-│   │   ├── contentBased.ts           # Algorithm 2 — Interest matching
-│   │   ├── collaborativeFiltering.ts # Algorithm 3 — Profile similarity
-│   │   └── combineScores.ts          # Weighted score combination
+│   │   ├── 📄 skillMatching.ts
+│   │   │   └── Cosine similarity based skill matching
+│   │   │
+│   │   ├── 📄 contentBased.ts
+│   │   │   └── Interest & profile based recommendations
+│   │   │
+│   │   ├── 📄 collaborativeFiltering.ts
+│   │   │   └── Similar user profile matching
+│   │   │
+│   │   └── 📄 combineScores.ts
+│   │       └── Weighted score aggregation engine
+│   │
 │   ├── 📂 data/
-│   │   └── jobDatabase.ts            # 15 curated job profiles
+│   │   └── 📄 jobDatabase.ts
+│   │       └── 15 curated job role datasets
+│   │
 │   └── 📂 utils/
-│       └── storage.ts                # localStorage helper functions
+│       └── 📄 storage.ts
+│           └── LocalStorage utility functions
 │
 ├── 📂 hooks/
-│   └── useUserProfile.ts             # Custom hook — profile management
+│   └── 📄 useUserProfile.ts
+│       └── Custom hook for profile state management
 │
-└── 📂 public/                         # Static assets & icons
-
+├── 📂 public/
+│   └── Static assets, icons and images
+│
+├── 📄 README.md
+├── 📄 package.json
+├── 📄 tailwind.config.ts
+├── 📄 next.config.js
+└── 📄 tsconfig.json
+```
 ---
 
 ## ⚙️ Getting Started
