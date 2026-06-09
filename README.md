@@ -1,384 +1,238 @@
-# CareerMatch - Smart Job Recommendation System
+<div align="center">
 
-A modern, intelligent career recommendation platform powered by three advanced machine learning algorithms. This application helps job seekers discover their ideal career paths by analyzing skills, interests, education, and experience.
+# 🎯 CareerMatch
+### *AI-Powered Smart Job Recommendation System*
 
-## Table of Contents
-- [Overview](#overview)
-- [System Architecture](#system-architecture)
-- [Three Recommendation Algorithms](#three-recommendation-algorithms)
-- [Data Flow](#data-flow)
-- [Technology Stack](#technology-stack)
-- [Project Structure](#project-structure)
-- [How to Use](#how-to-use)
-- [Algorithm Details](#algorithm-details)
+<br/>
 
-## Overview
+![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS_v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-CareerMatch uses three complementary machine learning algorithms to provide highly personalized job recommendations:
-1. **Skill-Based Matching** - Compares user skills directly with job requirements
-2. **Content-Based Filtering** - Matches interests and categories with job descriptions
-3. **Collaborative Filtering** - Recommends jobs based on similar user profiles
+<br/>
 
-Each algorithm produces a score (0-100), and the final recommendation is a weighted combination of all three, ensuring diverse and accurate results.
+> **Discover your perfect career path using three complementary ML algorithms —**
+> **Skill Matching · Content-Based Filtering · Collaborative Filtering**
 
-## System Architecture
+<br/>
 
-### Technology Stack
-- **Frontend**: Next.js 16 with React 19 and TypeScript
-- **Styling**: Tailwind CSS v4 with shadcn/ui components
-- **Data Storage**: Browser localStorage (no external database)
-- **State Management**: React Context API + Custom Hooks
-- **Validation**: React Hook Form + Zod schema validation
+---
 
-### No External Database
-This application stores all data locally:
-- **Job Database**: In-memory TypeScript objects loaded directly in the browser
-- **User Profiles**: Persisted in browser localStorage
-- **Zero Server Dependencies**: All computation happens client-side
-- **Complete Privacy**: User data never leaves the browser
+</div>
 
-## Three Recommendation Algorithms
+## 📌 Table of Contents
+- [Overview](#-overview)
+- [Live Demo](#-live-demo)
+- [Features](#-features)
+- [How It Works](#-how-it-works)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Algorithm Details](#-algorithm-details)
+- [Future Roadmap](#-future-roadmap)
+- [Author](#-author)
 
-### 1. Skill-Based Matching Algorithm
-**File**: `/lib/algorithms/skillMatching.ts`
+---
 
-**Purpose**: Directly compares user technical/professional skills with job requirements.
+## 🌟 Overview
 
-**How It Works**:
-- Calculates cosine similarity between user skills vector and each job's required skills vector
-- Computes overlap percentage: how many of job's required skills the user already has
-- Generates a skills gap: missing skills needed for the role
-- Score calculation:
-  - Base score from cosine similarity (0-100)
-  - Bonus points for matching skill levels
-  - Penalty for missing critical skills
+**CareerMatch** is a fully client-side, privacy-first career recommendation platform. It analyzes your **skills**, **interests**, **education**, and **experience** to match you with the most suitable job roles — using three complementary machine learning algorithms that run entirely in your browser.
 
-**Formula**:
-```
-Skill Match Score = (Overlap % × 70) + (Skill Level Match × 30)
-```
+No backend. No cloud. No data collection. Just intelligent recommendations, instantly.
 
-**Example**:
-- User has: [JavaScript, React, Node.js, MongoDB]
-- Job requires: [JavaScript, React, TypeScript, Node.js]
-- Overlap: 3/4 = 75%
-- Missing: TypeScript (critical skill)
-- Final Score: ~65-75 out of 100
+---
 
-### 2. Content-Based Filtering Algorithm
-**File**: `/lib/algorithms/contentBased.ts`
+## 🚀 Live Demo
 
-**Purpose**: Matches user interests and preferences with job descriptions and categories.
+> 🔗 [Coming Soon — Deploy on Vercel](#)
 
-**How It Works**:
-- Analyzes user interests and education level
-- Uses semantic similarity to match job categories and descriptions
-- Considers salary range preferences and career growth potential
-- Scores based on:
-  - Interest alignment with job category
-  - Education level appropriateness (not overqualified/underqualified)
-  - Job growth potential match with user goals
-  - Salary range satisfaction
-
-**Formula**:
-```
-Content Score = (Interest Match × 40) + (Education Fit × 30) + (Growth Potential × 30)
-```
-
-**Example**:
-- User interested in: AI/ML, Data Science, Technology
-- Job: Data Scientist (AI/ML category)
-- Education: User has relevant degree
-- Growth: High growth industry
-- Final Score: ~85-90 out of 100
-
-### 3. Collaborative Filtering Algorithm
-**File**: `/lib/algorithms/collaborativeFiltering.ts`
-
-**Purpose**: Recommends jobs based on similar user profiles and industry trends.
-
-**How It Works**:
-- Creates a user profile embedding based on skills, interests, experience
-- Finds similar user profiles (hypothetically from patterns)
-- Identifies popular jobs among similar users
-- Scores based on:
-  - Profile similarity to successful candidates
-  - Job popularity among similar experience levels
-  - Industry demand for the role
-  - Career transition compatibility
-
-**Formula**:
-```
-Collaborative Score = (Similar Profile Match × 35) + (Industry Demand × 35) + (Transition Ease × 30)
-```
-
-**Example**:
-- User profile: Full-stack developer, 3 years experience, interested in tech
-- Similar profiles: Other full-stack devs who transitioned to Product Management, DevOps, Tech Lead
-- Jobs popular with similar users: High demand for these transition roles
-- Final Score: ~70-80 out of 100
-
-## Data Flow
-
-### 1. User Lands on Application
-
-```
-User → Landing Page
-         ↓
-    Explains 3 Algorithms
-         ↓
-    "Get Started" Button
-```
-
-### 2. Dashboard - Profile Collection
-
-```
-User fills form with:
-├── Skills (Array) - e.g., [JavaScript, React, Node.js]
-├── Interests (Array) - e.g., [AI/ML, Web Development]
-├── Education Level - Bachelor's, Master's, etc.
-├── Years of Experience - 0-20+ years
-├── Salary Expectations - $50k-$150k+
-└── Career Goals - Job title preferences
-
-User Profile stored in:
-├── React Context (current session)
-└── localStorage (persistent across sessions)
-```
-
-### 3. Recommendation Engine - Algorithm Execution
-
-```
-User Profile + Job Database
-         ↓
-┌────────┴────────┬────────────────┬────────────────┐
-│                 │                │                │
-v                 v                v                v
-Skill Matching  Content-Based   Collaborative
-Algorithm       Filtering       Filtering
-│                 │                │
-├─ Cosine         ├─ Interest      ├─ Profile
-│  Similarity       Matching        Similarity
-├─ Skill Overlap   ├─ Education    ├─ Industry
-│  Analysis        Fit              Demand
-└─ Score: 0-100   └─ Score: 0-100 └─ Score: 0-100
-
-         ↓
-    Weighted Combination
-    (40% + 35% + 25%)
-         ↓
-    Final Score: 0-100
-```
-
-### 4. Score Combination Engine
-**File**: `/lib/algorithms/combineScores.ts`
-
-```
-Final Score = (Skill Score × 0.40) + 
-              (Content Score × 0.35) + 
-              (Collab Score × 0.25)
-
-Weights:
-- Skill-Based: 40% (most important - hard requirements)
-- Content-Based: 35% (interest/education alignment)
-- Collaborative: 25% (market trends & similar profiles)
-
-Result: Top 3 Jobs with highest final scores
-```
-
-### 5. Results Page - Recommendations Display
-
-```
-Top 3 Job Recommendations
-│
-├── Recommendation #1 (Highest Match %)
-│   ├── Job Title, Description, Salary
-│   ├── Algorithm Breakdown
-│   │   ├── Skill Match: 85% (missing: TypeScript)
-│   │   ├── Content Match: 78% (good interest fit)
-│   │   └── Collab Match: 72% (industry demand)
-│   ├── Skills Gap Analysis
-│   │   ├── Missing Skills: [TypeScript, AWS]
-│   │   └── Learning Resources: Recommended courses
-│   └── Career Growth Potential
-│
-├── Recommendation #2 (Second Match)
-│   └── [Same structure...]
-│
-└── Recommendation #3 (Third Match)
-    └── [Same structure...]
-
-User Actions:
-├── View detailed breakdown
-├── See learning paths for missing skills
-├── Save profile for future reference
-└── Start over with new profile
-```
-
-## Project Structure
-
-```
-CareerMatch/
-├── app/
-│   ├── layout.tsx              # Root layout with metadata
-│   ├── globals.css             # Light theme color system
-│   ├── page.tsx                # Landing page (hero + explanations)
-│   ├── dashboard/
-│   │   └── page.tsx            # Profile input form
-│   └── results/
-│       └── page.tsx            # Recommendations display
-│
-├── components/
-│   ├── ProfileForm.tsx         # User input form with validation
-│   └── JobRecommendationCard.tsx # Recommendation card component
-│
-├── lib/
-│   ├── data/
-│   │   └── jobDatabase.ts      # In-memory job data (15 curated jobs)
-│   ├── algorithms/
-│   │   ├── skillMatching.ts    # Algorithm #1: Skill-based
-│   │   ├── contentBased.ts     # Algorithm #2: Content-based
-│   │   ├── collaborativeFiltering.ts # Algorithm #3: Collaborative
-│   │   └── combineScores.ts    # Weighted score combination
-│   └── utils/
-│       └── storage.ts          # localStorage utilities
-│
-├── hooks/
-│   └── useUserProfile.ts       # Custom hook for profile management
-│
-└── README.md                   # This file
-```
-
-## How to Use
-
-### 1. Clone and Install
 ```bash
-git clone <repository>
-cd CareerMatch
+# Run it locally in 3 steps:
+git clone https://github.com/YOUR_USERNAME/career-recommendation-ui.git
+cd career-recommendation-ui
+npm install && npm run dev
+```
+
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| 🎯 **Skill-Based Matching** | Cosine similarity between your skills and job requirements |
+| 📄 **Content-Based Filtering** | Semantic matching of interests and education with job categories |
+| 👥 **Collaborative Filtering** | Recommendations based on similar professional profiles |
+| 📊 **Weighted Score Engine** | Final score = 40% Skill + 35% Content + 25% Collaborative |
+| 🔍 **Skills Gap Analysis** | Shows exactly which skills you're missing per job |
+| 🛤️ **Learning Path Suggestions** | Recommends resources to bridge your skill gaps |
+| 🔒 **100% Private** | All data stored in browser `localStorage` — never leaves your device |
+| ⚡ **Zero Latency** | No API calls, no server — runs entirely client-side |
+
+---
+
+## 🧠 How It Works
+
+┌─────────────────────────────────────┐
+    │         USER PROFILE INPUT           │
+    │  Skills · Interests · Education      │
+    │  Experience · Salary Expectations    │
+    └──────────────┬──────────────────────┘
+                   │
+      ┌────────────▼────────────┐
+      │     JOB DATABASE        │
+      │  15 Curated Job Roles   │
+      └────────────┬────────────┘
+                   │
+   ┌───────────────┼──────────────────┐
+   ▼               ▼                  ▼
+   ┌──────────┐   ┌────────────┐   ┌──────────────┐
+│  Skill   │   │  Content   │   │Collaborative │
+│ Matching │   │ Filtering  │   │  Filtering   │
+│  (40%)   │   │   (35%)    │   │    (25%)     │
+└────┬─────┘   └─────┬──────┘   └──────┬───────┘
+│               │                 │
+└───────────────┼─────────────────┘
+▼
+┌──────────────────┐
+│  Weighted Final  │
+│      Score       │
+└────────┬─────────┘
+▼
+┌──────────────────────┐
+│  Top 3 Job Matches   │
+│  + Gap Analysis      │
+│  + Learning Paths    │
+└──────────────────────┘
+
+   ---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Framework** | Next.js 16 + React 19 |
+| **Language** | TypeScript 5.7 |
+| **Styling** | Tailwind CSS v4 + shadcn/ui + Radix UI |
+| **Forms & Validation** | React Hook Form + Zod |
+| **Charts** | Recharts |
+| **State Management** | React Context API + Custom Hooks |
+| **Storage** | Browser `localStorage` (no external DB) |
+| **Package Manager** | pnpm |
+
+---
+
+## 📁 Project Structure
+
+career-recommendation-ui/
+│
+├── 📂 app/
+│   ├── layout.tsx                    # Root layout & metadata
+│   ├── page.tsx                      # Landing page (hero + features)
+│   ├── 📂 dashboard/
+│   │   └── page.tsx                  # User profile input form
+│   └── 📂 results/
+│       └── page.tsx                  # Top 3 job recommendations
+│
+├── 📂 components/
+│   ├── ProfileForm.tsx               # Skill/interest/education input
+│   ├── JobRecommendationCard.tsx     # Match card with score breakdown
+│   └── 📂 ui/                        # shadcn/ui component library
+│
+├── 📂 lib/
+│   ├── 📂 algorithms/
+│   │   ├── skillMatching.ts          # Algorithm 1 — Cosine similarity
+│   │   ├── contentBased.ts           # Algorithm 2 — Interest matching
+│   │   ├── collaborativeFiltering.ts # Algorithm 3 — Profile similarity
+│   │   └── combineScores.ts          # Weighted score combination
+│   ├── 📂 data/
+│   │   └── jobDatabase.ts            # 15 curated job profiles
+│   └── 📂 utils/
+│       └── storage.ts                # localStorage helper functions
+│
+├── 📂 hooks/
+│   └── useUserProfile.ts             # Custom hook — profile management
+│
+└── 📂 public/                         # Static assets & icons
+
+---
+
+## ⚙️ Getting Started
+
+### Prerequisites
+- Node.js `v18+`
+- npm / pnpm
+
+### Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Rohan607p/career-recommendation-ui.git
+
+# 2. Move into the project
+cd career-recommendation-ui
+
+# 3. Install dependencies
 npm install
-```
 
-### 2. Run Development Server
-```bash
+# 4. Start the development server
 npm run dev
 ```
-Open http://localhost:3000 in your browser.
 
-### 3. User Journey
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-**Step 1: Landing Page**
-- Read about the three algorithms
-- Click "Get Started" button
+### Build for Production
 
-**Step 2: Dashboard - Build Your Profile**
-- Enter your technical skills (comma-separated or click to add)
-- Select your interests from dropdown (AI/ML, Web Dev, Data Science, etc.)
-- Choose education level
-- Enter years of experience
-- Set salary expectations
-- Click "Get Recommendations"
-
-**Step 3: Results Page**
-- View top 3 job recommendations
-- Expand each card to see:
-  - Detailed algorithm breakdown (all three scores)
-  - Skills gap analysis with missing skills
-  - Learning paths for skill development
-  - Salary information and growth potential
-
-**Step 4: Save & Track**
-- Your profile is automatically saved to localStorage
-- Return anytime to see your history
-- Modify and re-run recommendations
-
-## Algorithm Details
-
-### Input Data Types
-
-```typescript
-// User Profile
-{
-  skills: string[];              // User's technical/professional skills
-  interests: string[];           // Career interests & specializations
-  educationLevel: string;        // Education qualification
-  yearsOfExperience: number;     // Work experience in years
-  salaryExpectations: number;    // Desired salary range
-  careerGoals: string;           // Long-term goals
-}
-
-// Job
-{
-  id: string;
-  title: string;
-  description: string;
-  category: string;              // AI/ML, Web Dev, Data Science, etc.
-  requiredSkills: string[];      // Must-have skills
-  educationLevel: string;        // Minimum education
-  salaryRange: { min, max };     // Salary information
-  growthPotential: 'high' | 'medium' | 'low';
-  keyCompetencies: string[];     // Soft skills needed
-}
+```bash
+npm run build
+npm run start
 ```
 
-### Similarity Metrics
+---
 
-**Cosine Similarity (Skill Matching)**:
-- Converts arrays into vectors
-- Measures angle between vectors (0° = perfect match, 90° = no match)
-- Formula: `A·B / (||A|| × ||B||)`
-- Result: 0 to 1 (scaled to 0-100)
+## 🔬 Algorithm Details
 
-**String Similarity (Content-Based)**:
-- Uses Levenshtein distance algorithm
-- Measures character-level similarity between interests and job categories
-- Accounts for exact matches and partial matches
+### 1. 🎯 Skill-Based Matching *(Weight: 40%)*
+Converts user skills and job requirements into vectors, then computes **cosine similarity** to find the angle between them.
+### 2. 📄 Content-Based Filtering *(Weight: 35%)*
+Uses **semantic string similarity** (Levenshtein distance) to match user interests and education level with job descriptions and categories.
+### 3. 👥 Collaborative Filtering *(Weight: 25%)*
+Creates **profile embeddings** based on skills, experience, and interests — then scores jobs based on industry demand and profile similarity patterns.
+### 🏆 Final Score
 
-**Profile Similarity (Collaborative)**:
-- Creates weighted profile vectors
-- Compares: skills distribution, interests overlap, experience level
-- Factors in industry trends and demand signals
+---
 
-### Handling Edge Cases
+## 🔮 Future Roadmap
 
-1. **No Skills Match**: If user has no matching skills, algorithm still considers education and interests
-2. **Career Transition**: Collaborative filtering recognizes and scores career changes positively
-3. **Early Career**: Special weighting for entry-level positions
-4. **Over-qualification**: Penalizes jobs below user's education/experience level
-5. **Salary Mismatch**: Flags when job salary doesn't match expectations
+- [ ] 📄 Resume upload with automatic skill extraction
+- [ ] 🗄️ Expand job database to 500+ curated positions
+- [ ] 🛤️ Full skill development roadmaps with course links
+- [ ] 📊 PDF export of personalized career report
+- [ ] 🔁 Feedback loop to improve recommendations over time
+- [ ] 🌐 Deploy on Vercel with shareable profile links
 
-## Performance Considerations
+---
 
-- **Client-Side Computation**: All algorithms run in browser (~50-100ms for 15 jobs)
-- **Storage**: localStorage usage ~50KB for typical user profile + history
-- **No API Calls**: Zero latency, no network dependencies
-- **Scalability**: Current design handles 100-200 jobs efficiently
+## 👨‍💻 Author
 
-## Future Enhancements
+<div align="center">
 
-- [ ] Add resume upload and parsing (extract skills automatically)
-- [ ] Expand job database to 500+ curated positions
-- [ ] Add skill development roadmaps with learning resources
-- [ ] Implement user feedback loop (rate recommendations)
-- [ ] Add industry trend data for better collaborative filtering
-- [ ] Export recommendations as PDF report
-- [ ] Share profile with mentors/career coaches
+**Rohan Patil**
 
-## Data Sources
+B.E. Computer Engineering (AI & ML)
+Smt. Indira Gandhi College of Engineering, Ghansoli
 
-Job data is curated from public sources:
-- Bureau of Labor Statistics (bls.gov) - Job descriptions, salary data
-- LinkedIn - Skills requirements, industry trends
-- Glassdoor - Salary ranges, company insights
-- GitHub - Tech job descriptions from trending repos
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/rohan-patil-tech)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Rohan607p)
 
-## License
+</div>
 
-MIT License - Feel free to use and modify for personal or commercial projects.
+---
 
-## Support
+<div align="center">
 
-For issues, questions, or recommendations about the algorithms:
-1. Check the algorithm files in `/lib/algorithms/`
-2. Review the inline code comments
-3. Refer to the Data Flow section above
-4. Examine the example outputs in recommendation cards
+⭐ **If you found this project helpful, please give it a star!** ⭐
+
+*Made with ❤️ using Next.js + TypeScript*
+
+</div>
