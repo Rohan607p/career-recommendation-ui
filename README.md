@@ -73,38 +73,37 @@ npm install && npm run dev
 
 ## 🧠 How It Works
 
-┌─────────────────────────────────────┐
-    │         USER PROFILE INPUT           │
-    │  Skills · Interests · Education      │
-    │  Experience · Salary Expectations    │
-    └──────────────┬──────────────────────┘
-                   │
-      ┌────────────▼────────────┐
-      │     JOB DATABASE        │
-      │  15 Curated Job Roles   │
-      └────────────┬────────────┘
-                   │
-   ┌───────────────┼──────────────────┐
-   ▼               ▼                  ▼
-   ┌──────────┐   ┌────────────┐   ┌──────────────┐
-│  Skill   │   │  Content   │   │Collaborative │
-│ Matching │   │ Filtering  │   │  Filtering   │
-│  (40%)   │   │   (35%)    │   │    (25%)     │
-└────┬─────┘   └─────┬──────┘   └──────┬───────┘
-│               │                 │
-└───────────────┼─────────────────┘
-▼
-┌──────────────────┐
-│  Weighted Final  │
-│      Score       │
-└────────┬─────────┘
-▼
-┌──────────────────────┐
-│  Top 3 Job Matches   │
-│  + Gap Analysis      │
-│  + Learning Paths    │
-└──────────────────────┘
+# Job Recommendation System Workflow
 
+```mermaid
+flowchart TD
+
+    A["👤 User Profile Input<br/>Skills • Interests • Education<br/>Experience • Salary Expectations"]
+
+    B["💼 Job Database<br/>15 Curated Job Roles"]
+
+    A --> B
+
+    B --> C["🎯 Skill Matching<br/>(40%)"]
+    B --> D["📄 Content Filtering<br/>(35%)"]
+    B --> E["🤝 Collaborative Filtering<br/>(25%)"]
+
+    C --> F["📊 Weighted Final Score"]
+    D --> F
+    E --> F
+
+    F --> G["🏆 Top 3 Job Matches<br/>📈 Gap Analysis<br/>📚 Learning Paths"]
+
+    style A fill:#4F46E5,color:#fff,stroke:#312E81,stroke-width:2px
+    style B fill:#059669,color:#fff,stroke:#064E3B,stroke-width:2px
+
+    style C fill:#2563EB,color:#fff,stroke:#1E3A8A,stroke-width:2px
+    style D fill:#D97706,color:#fff,stroke:#92400E,stroke-width:2px
+    style E fill:#7C3AED,color:#fff,stroke:#4C1D95,stroke-width:2px
+
+    style F fill:#DC2626,color:#fff,stroke:#7F1D1D,stroke-width:2px
+    style G fill:#16A34A,color:#fff,stroke:#14532D,stroke-width:2px
+```
    ---
 
 ## 🛠️ Tech Stack
