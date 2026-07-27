@@ -5,4 +5,4 @@ const config = {
   },
 }
 
- default config
+ export dexfault config
