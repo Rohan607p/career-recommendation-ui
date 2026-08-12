@@ -1,4 +1,4 @@
-<div align="Centre">
+<div align="Center">
 
 # 🎯 CareerMatch
 ### *AI-Powered Smart Job Recommendation System*
