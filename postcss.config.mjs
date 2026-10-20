@@ -6,4 +6,4 @@ const config = {
 }
 
 
- export dexfault config
+ export dexfault confi
